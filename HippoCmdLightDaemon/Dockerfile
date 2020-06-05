@@ -1,17 +1,16 @@
 FROM morsm6777/raspbian-stretch-mono:latest
 
-LABEL description="HippoThermoDaemon mono container"
+LABEL description="HippoCmdLightDaemon mono container"
 
 # Get and compile daemon
-WORKDIR /hippothermo
+WORKDIR /hippocmdlight
 
-RUN git clone -b current --depth 1 https://github.com/morsm/HippoThermoDaemon.git . \
+RUN git clone -b current --depth 1 https://github.com/morsm/HippoCmdLightDaemon.git . \
+    && chmod +x querylamp \
     && nuget restore \
     && msbuild -p:Configuration=Release *csproj
 
-WORKDIR /hippothermo/bin/Release
-
-COPY config.json .
+WORKDIR /hippocmdlight/bin/Release
 
 CMD mono HippotronicsThermoDaemon.exe
 
