@@ -12,5 +12,5 @@ RUN git clone -b current --depth 1 https://github.com/morsm/HippoCmdLightDaemon.
 
 WORKDIR /hippocmdlight/bin/Release
 
-CMD mono HippotronicsThermoDaemon.exe
+CMD mono HippoCmdLightDaemon.exe
 
