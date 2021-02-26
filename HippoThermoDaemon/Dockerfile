@@ -1,17 +1,21 @@
-FROM morsm6777/raspbian-stretch-mono:latest
+FROM mono:latest
+ARG RELEASE
 
 LABEL description="HippoThermoDaemon mono container"
 
-# Get and compile daemon
-WORKDIR /hippothermo
+# Install GIT, we'll need it
+RUN apt-get update && apt-get install -y git && apt-get clean
 
-RUN git clone -b current --depth 1 https://github.com/morsm/HippoThermoDeamon.git . \
+# Get and compile HippoThermo daemon
+WORKDIR /thermod
+
+RUN git clone -b $RELEASE --depth 1 https://github.com/morsm/HippoThermoDeamon.git . \
     && nuget restore \
     && msbuild -p:Configuration=Release *csproj
 
-WORKDIR /hippothermo/bin/Release
+WORKDIR /thermod/bin/Release
 
-COPY config.json .
+EXPOSE 9002/tcp
 
 CMD mono HippotronicsThermoDaemon.exe
 

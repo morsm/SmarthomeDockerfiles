@@ -1,6 +1,0 @@
-{
-  "Port": 9002,
-  "DbService": "http://nodetempdb:3005/",
-  "SerialService": "http://arduinoserial:9003/webapi/",
-  "DefaultTemperature": 17.0
-}
